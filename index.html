@@ -126,16 +126,31 @@ font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:upperca
 .plan .btn{ width:100%; text-align:center; margin-top:22px; }
 
 /* GALLERY */
-/* GALLERY — 3D ROTATING RING (contained, auto-spins, varied sizes) */
+/* HERO LOGO — blend away its background so only the artwork shows, no rectangle edge */
+.hero-logo-wrap{
+  max-width:480px; width:82%; margin:0 auto 18px; position:relative;
+}
+.hero-logo-wrap::before{
+  content:"";
+  position:absolute; inset:-20% -10%;
+  background:radial-gradient(ellipse at center, rgba(201,162,75,0.10), transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.hero-logo{
+  width:100%; height:auto; display:block; position:relative; z-index:1;
+  filter:drop-shadow(0 4px 24px rgba(201,162,75,0.12));
+}
+
+/* GALLERY — 3D ROTATING RING (smaller, denser, polished) */
 .ring-gallery{
-  max-width:1000px; margin:0 auto; height:420px;
-  perspective:1400px;
+  max-width:760px; margin:0 auto; height:280px;
+  perspective:1100px;
   position:relative;
 }
 .ring-stage{
   position:absolute; top:50%; left:50%; width:0; height:0;
   transform-style:preserve-3d;
-  animation:ringSpin 26s linear infinite;
+  animation:ringSpin 24s linear infinite;
 }
 .ring-gallery:hover .ring-stage{ animation-play-state:paused; }
 @keyframes ringSpin{
@@ -144,51 +159,50 @@ font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:upperca
 }
 .ring-item{
   position:absolute;
-  width:300px; height:200px;
-  margin:-100px 0 0 -150px;   /* center each item on the ring axis */
+  width:210px; height:140px;
+  margin:-70px 0 0 -105px;
   transform-style:preserve-3d;
   border:1px solid rgba(201,162,75,0.15);
+  border-radius:4px;
   overflow:hidden;
-  box-shadow:0 14px 34px rgba(0,0,0,0.45);
+  box-shadow:0 10px 26px rgba(0,0,0,0.45);
   transition:box-shadow .3s ease;
 }
 .ring-item img{
   width:100%; height:100%; object-fit:cover; display:block;
   transition:filter .3s ease;
-  filter:saturate(0.92);
+  filter:saturate(0.9) brightness(0.92);
 }
-.ring-item:hover img{ filter:saturate(1.1) brightness(1.05); }
+.ring-item:hover img{ filter:saturate(1.12) brightness(1.08); }
 
-/* 12 items evenly spaced 30° apart, pushed out on a cylinder.
-   Dense packing means the front is always filled — no empty/back gaps. */
-.ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(560px); }
-.ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(560px); }
-.ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(560px); }
-.ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(560px); }
-.ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(560px); }
-.ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(560px); }
-.ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(560px); }
-.ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(560px); }
-.ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(560px); }
-.ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(560px); }
-.ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(560px); }
-.ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(560px); }
+.ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(390px); }
+.ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(390px); }
+.ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(390px); }
+.ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(390px); }
+.ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(390px); }
+.ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(390px); }
+.ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(390px); }
+.ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(390px); }
+.ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(390px); }
+.ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(390px); }
+.ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(390px); }
+.ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(390px); }
 
 @media (max-width:700px){
-  .ring-gallery{ height:300px; perspective:800px; }
-  .ring-item{ width:210px; height:140px; margin:-70px 0 0 -105px; }
-  .ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(400px); }
-  .ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(400px); }
-  .ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(400px); }
-  .ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(400px); }
-  .ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(400px); }
-  .ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(400px); }
-  .ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(400px); }
-  .ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(400px); }
-  .ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(400px); }
-  .ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(400px); }
-  .ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(400px); }
-  .ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(400px); }
+  .ring-gallery{ height:220px; perspective:800px; }
+  .ring-item{ width:160px; height:106px; margin:-53px 0 0 -80px; }
+  .ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(300px); }
+  .ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(300px); }
+  .ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(300px); }
+  .ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(300px); }
+  .ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(300px); }
+  .ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(300px); }
+  .ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(300px); }
+  .ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(300px); }
+  .ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(300px); }
+  .ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(300px); }
+  .ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(300px); }
+  .ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(300px); }
 }
 @media (prefers-reduced-motion: reduce){
   .ring-stage{ animation:none; }
@@ -433,7 +447,9 @@ color:var(--chrome); font-size:0.82rem; font-family:'Jost',sans-serif;
 </header>
 
 <section class="hero">
-<img src="logo-banner.png" alt="Joly Shine — Mobile Detailing, Allen TX" class="hero-logo" style="max-width:560px; width:88%; height:auto; margin:0 auto 20px; display:block;">
+<div class="hero-logo-wrap">
+<img src="logo-banner.png" alt="Joly Shine — Mobile Detailing, Allen TX" class="hero-logo">
+</div>
 <div class="eyebrow">Serving Allen, TX & Surrounding Areas</div>
 <h1>Your car,<br><em>showroom clean</em>, in your driveway.</h1>
 <p class="lead">Joly Shine brings professional interior and exterior detailing straight to you. No drop-off, no waiting room — just a clean ride when we're done.</p>
