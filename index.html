@@ -244,6 +244,7 @@ background:var(--bg); border:1px solid var(--line); color:var(--cream);
 padding:14px 16px; font-family:'Jost',sans-serif; font-size:0.95rem;
 }
 select{ appearance:none; background-image:linear-gradient(45deg, transparent 50%, var(--chrome) 50%), linear-gradient(135deg, var(--chrome) 50%, transparent 50%); background-position:calc(100% - 20px) center, calc(100% - 15px) center; background-size:5px 5px, 5px 5px; background-repeat:no-repeat; }
+.date-pair{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 input:focus, textarea:focus, select:focus{ outline:1px solid var(--paint-red); border-color:transparent; }
 textarea{ resize:vertical; min-height:90px; }
 .form-note{ font-size:0.78rem; color:var(--chrome); font-family:'Jost',sans-serif; }
@@ -643,7 +644,15 @@ color:var(--chrome); font-size:0.82rem; font-family:'Jost',sans-serif;
 <div class="field-row">
 <div>
 <label for="date">Preferred Date</label>
-<input type="date" id="date" name="date" required>
+<div class="date-pair">
+<select id="dateMonth" required>
+<option value="">Month</option>
+</select>
+<select id="dateDay" required>
+<option value="">Day</option>
+</select>
+</div>
+<input type="hidden" id="date" name="date">
 </div>
 <div>
 <label for="address">Service Address / ZIP</label>
@@ -727,23 +736,56 @@ color:var(--chrome); font-size:0.82rem; font-family:'Jost',sans-serif;
 <script>
 (function(){
 var dateInput = document.getElementById('date');
+var monthSelect = document.getElementById('dateMonth');
+var daySelect = document.getElementById('dateDay');
 var today = new Date();
 today.setHours(0,0,0,0);
-var minDate = new Date(today.getTime() + 24*60*60*1000); // earliest = tomorrow
-dateInput.min = minDate.toISOString().split('T')[0];
 
-var maxDate = new Date(today.getTime() + 60*24*60*60*1000); // 60 days out
-dateInput.max = maxDate.toISOString().split('T')[0];
-
-// Block Sundays (closed)
-dateInput.addEventListener('input', function(){
-var chosen = new Date(dateInput.value + 'T00:00:00');
-if(chosen.getDay() === 0){
-alert("We're closed on Sundays — please pick another day.");
-dateInput.value = '';
-}
-updateSummary();
+var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+monthNames.forEach(function(name, idx){
+var opt = document.createElement('option');
+opt.value = idx;
+opt.textContent = name;
+monthSelect.appendChild(opt);
 });
+
+function daysInMonth(monthIdx, year){
+return new Date(year, monthIdx+1, 0).getDate();
+}
+
+function populateDays(){
+var chosenMonth = monthSelect.value;
+daySelect.innerHTML = '<option value="">Day</option>';
+if(chosenMonth === '') return;
+// Use the soonest upcoming year for this month so day counts (e.g. leap Feb) are correct
+var year = today.getFullYear();
+if(parseInt(chosenMonth,10) < today.getMonth()) year += 1;
+var numDays = daysInMonth(parseInt(chosenMonth,10), year);
+for(var d=1; d<=numDays; d++){
+var opt = document.createElement('option');
+opt.value = d;
+opt.textContent = d;
+daySelect.appendChild(opt);
+}
+}
+monthSelect.addEventListener('change', function(){ populateDays(); computeDate(); });
+daySelect.addEventListener('change', computeDate);
+
+function computeDate(){
+var m = monthSelect.value, d = daySelect.value;
+if(m === '' || d === ''){ dateInput.value = ''; updateSummary(); return; }
+m = parseInt(m,10); d = parseInt(d,10);
+// Pick the nearest occurrence of this month/day that isn't in the past
+var year = today.getFullYear();
+var candidate = new Date(year, m, d);
+if(candidate < today){ year += 1; candidate = new Date(year, m, d); }
+var mm = String(m+1).padStart(2,'0');
+var dd = String(d).padStart(2,'0');
+dateInput.value = year + '-' + mm + '-' + dd;
+updateSummary();
+}
+
+// Open all week — no day-of-week restriction
 
 var timeSlots = document.querySelectorAll('.time-slot');
 var timeField = document.getElementById('time');
