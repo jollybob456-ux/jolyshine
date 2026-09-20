@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>JolyShine — Mobile Auto Detailing in Allen, Plano & Frisco, TX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg: #0b0b0c;
+--bg-soft: #141414;
+--card: #17171818;
+--card: #171718;
+--paint-red: #c7ccd2;
+--paint-red-light: #eceef0;
+--chrome: #9aa1a8;
+--cream: #efece4;
+--line: #2a2a2d;
+--ok-green:#2f8f5b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+background:var(--bg);
+color:var(--cream);
+font-family:'Jost',sans-serif;
+line-height:1.6;
+}
+h1,h2,h3{font-family:'Archivo',sans-serif; font-weight:800;}
+.eyebrow{font-family:'Jost',sans-serif; text-transform:uppercase; letter-spacing:0.28em; font-weight:500;}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+
+/* NAV */
+header{
+position:sticky; top:0; z-index:50;
+background:rgba(11,11,12,0.92);
+backdrop-filter:blur(6px);
+border-bottom:1px solid var(--line);
+}
+nav{
+max-width:1100px; margin:0 auto; padding:20px 24px;
+display:flex; align-items:center; justify-content:space-between;
+}
+.brand{font-family:'Archivo',sans-serif; font-weight:800; font-size:1.5rem; letter-spacing:0.06em; display:flex; align-items:center; gap:10px;}
+.brand img{ height:38px; width:38px; border-radius:6px; }
+.brand span{color:var(--paint-red);}
+.nav-links{display:flex; gap:32px; font-size:0.82rem; font-weight:500; letter-spacing:0.03em;}
+.nav-links a{opacity:0.75; transition:opacity .2s, color .2s;}
+.nav-links a:hover{opacity:1; color:var(--paint-red-light);}
+.nav-call{
+border:1px solid var(--paint-red); color:var(--paint-red); padding:9px 20px;
+font-weight:500; font-size:0.8rem; white-space:nowrap; letter-spacing:0.05em; text-transform:uppercase;
+}
+.nav-call:hover{background:var(--paint-red); color:var(--bg);}
+.menu-toggle{display:none; background:none; border:none; color:var(--cream); font-size:1.5rem; cursor:pointer;}
+
+/* HERO */
+.hero{
+position:relative;
+overflow:hidden;
+padding:120px 24px 100px;
+text-align:center;
+background: var(--bg);
+}
+.hero::after{
+content:"";
+position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+width:1px; height:70px; background:linear-gradient(var(--paint-red), transparent);
+}
+.eyebrow{
+color:var(--paint-red); font-size:0.74rem; font-weight:500; letter-spacing:0.28em; margin-bottom:20px;
+}
+.hero h1{
+font-size:clamp(2.6rem, 6vw, 4.8rem);
+font-weight:600;
+line-height:1.05;
+margin-bottom:22px;
+}
+.hero h1 em{ font-style:normal; color:var(--paint-red); }
+.hero p.lead{
+max-width:520px; margin:0 auto 40px; color:#a8a49a; font-size:1.05rem; font-family:'Jost',sans-serif;
+}
+.cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+.btn{
+display:inline-block; padding:16px 36px; font-weight:500; font-size:0.8rem;
+letter-spacing:0.14em; text-transform:uppercase;
+transition: transform .15s ease, background .2s, color .2s;
+border:1px solid var(--paint-red); cursor:pointer; font-family:'Jost',sans-serif;
+}
+.btn-primary{ background:var(--paint-red); color:var(--bg); }
+.btn-primary:hover{ background:var(--paint-red-light); border-color:var(--paint-red-light); }
+.btn-ghost{ border:1px solid var(--chrome); color:var(--cream); background:transparent; }
+.btn-ghost:hover{ border-color:var(--cream); }
+
+section{ padding:100px 24px; max-width:1100px; margin:0 auto; }
+.section-head{ text-align:center; max-width:600px; margin:0 auto 64px; }
+.section-head .eyebrow{ justify-content:center; }
+.section-head h2{ font-size:clamp(2rem,4vw,2.8rem); margin-bottom:16px; font-weight:600; }
+.section-head p{ color:var(--chrome); font-family:'Jost',sans-serif; }
+
+/* SERVICES */
+.services-grid{
+display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line);
+}
+.plan{
+background:transparent; border-right:1px solid var(--line);
+padding:44px 34px; position:relative; transition:background .2s;
+}
+.plan:last-child{ border-right:none; }
+.plan:hover{ background:var(--bg-soft); }
+.plan.featured{ background:var(--bg-soft); }
+.plan .tag{
+position:absolute; top:24px; right:24px; color:var(--paint-red);
+font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+}
+.plan h3{ font-size:1.5rem; margin-bottom:8px; font-weight:600; }
+.plan .price{ font-family:'Archivo',sans-serif; font-size:2.4rem; font-weight:600; color:var(--paint-red); margin:12px 0 20px;}
+.plan .price small{ font-size:0.85rem; color:var(--chrome); font-weight:400; font-family:'Jost',sans-serif; }
+.plan ul{ list-style:none; }
+.plan li{ padding:9px 0; border-top:1px solid var(--line); color:var(--chrome); font-size:0.88rem; font-family:'Jost',sans-serif; }
+.plan li:first-child{ border-top:none; }
+.plan li::before{ content:"— "; color:var(--paint-red); }
+.plan .btn{ width:100%; text-align:center; margin-top:22px; }
+
+/* GALLERY */
+/* HERO LOGO — blend away its background so only the artwork shows, no rectangle edge */
+.hero-logo-wrap{
+  max-width:480px; width:82%; margin:0 auto 18px; position:relative;
+}
+.hero-logo-wrap::before{
+  content:"";
+  position:absolute; inset:-20% -10%;
+  background:radial-gradient(ellipse at center, rgba(201,162,75,0.10), transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.hero-logo{
+  width:100%; height:auto; display:block; position:relative; z-index:1;
+  filter:drop-shadow(0 4px 24px rgba(201,162,75,0.12));
+}
+
+/* GALLERY — 3D ROTATING RING (smaller, denser, polished) */
+.ring-gallery{
+  max-width:760px; margin:0 auto; height:280px;
+  perspective:1100px;
+  position:relative;
+}
+.ring-stage{
+  position:absolute; top:50%; left:50%; width:0; height:0;
+  transform-style:preserve-3d;
+  animation:ringSpin 24s linear infinite;
+}
+.ring-gallery:hover .ring-stage{ animation-play-state:paused; }
+@keyframes ringSpin{
+  from{ transform:translate(-50%,-50%) rotateY(0deg); }
+  to{ transform:translate(-50%,-50%) rotateY(360deg); }
+}
+.ring-item{
+  position:absolute;
+  width:210px; height:140px;
+  margin:-70px 0 0 -105px;
+  transform-style:preserve-3d;
+  border:1px solid rgba(201,162,75,0.15);
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 10px 26px rgba(0,0,0,0.45);
+  transition:box-shadow .3s ease;
+}
+.ring-item img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:filter .3s ease;
+  filter:saturate(0.9) brightness(0.92);
+}
+.ring-item:hover img{ filter:saturate(1.12) brightness(1.08); }
+
+.ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(390px); }
+.ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(390px); }
+.ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(390px); }
+.ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(390px); }
+.ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(390px); }
+.ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(390px); }
+.ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(390px); }
+.ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(390px); }
+.ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(390px); }
+.ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(390px); }
+.ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(390px); }
+.ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(390px); }
+
+@media (max-width:700px){
+  .ring-gallery{ height:220px; perspective:800px; }
+  .ring-item{ width:160px; height:106px; margin:-53px 0 0 -80px; }
+  .ring-item:nth-child(1){  transform:rotateY(0deg)   translateZ(300px); }
+  .ring-item:nth-child(2){  transform:rotateY(30deg)  translateZ(300px); }
+  .ring-item:nth-child(3){  transform:rotateY(60deg)  translateZ(300px); }
+  .ring-item:nth-child(4){  transform:rotateY(90deg)  translateZ(300px); }
+  .ring-item:nth-child(5){  transform:rotateY(120deg) translateZ(300px); }
+  .ring-item:nth-child(6){  transform:rotateY(150deg) translateZ(300px); }
+  .ring-item:nth-child(7){  transform:rotateY(180deg) translateZ(300px); }
+  .ring-item:nth-child(8){  transform:rotateY(210deg) translateZ(300px); }
+  .ring-item:nth-child(9){  transform:rotateY(240deg) translateZ(300px); }
+  .ring-item:nth-child(10){ transform:rotateY(270deg) translateZ(300px); }
+  .ring-item:nth-child(11){ transform:rotateY(300deg) translateZ(300px); }
+  .ring-item:nth-child(12){ transform:rotateY(330deg) translateZ(300px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .ring-stage{ animation:none; }
+}
+
+/* GALLERY (legacy grid – kept for any fallback) */
+.gallery-grid{
+display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+}
+.gallery-slot{
+aspect-ratio:4/3; background:var(--bg-soft);
+display:flex; align-items:center; justify-content:center; text-align:center; color:var(--chrome);
+font-size:0.85rem; padding:20px;
+}
+
+/* SERVICE AREA */
+.area-box{
+border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+padding:56px 0; display:flex; align-items:center; gap:40px; flex-wrap:wrap; justify-content:center; text-align:center;
+}
+.pin{
+width:56px; height:56px; flex-shrink:0; border:1px solid var(--paint-red); border-radius:50%;
+display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+}
+.area-box h3{ font-size:1.6rem; margin-bottom:8px; font-weight:600; }
+.area-box p{ color:var(--chrome); font-family:'Jost',sans-serif; }
+
+/* BOOKING */
+.booking-box{
+background:var(--bg-soft); border:1px solid var(--line);
+padding:48px; max-width:640px; margin:0 auto;
+}
+form{ display:flex; flex-direction:column; gap:18px; }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+label{ font-size:0.72rem; color:var(--chrome); font-weight:500; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:8px; display:block; }
+input, textarea, select{
+width:100%;
+background:var(--bg); border:1px solid var(--line); color:var(--cream);
+padding:14px 16px; font-family:'Jost',sans-serif; font-size:0.95rem;
+}
+select{ appearance:none; background-image:linear-gradient(45deg, transparent 50%, var(--chrome) 50%), linear-gradient(135deg, var(--chrome) 50%, transparent 50%); background-position:calc(100% - 20px) center, calc(100% - 15px) center; background-size:5px 5px, 5px 5px; background-repeat:no-repeat; }
+.date-pair{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+input:focus, textarea:focus, select:focus{ outline:1px solid var(--paint-red); border-color:transparent; }
+textarea{ resize:vertical; min-height:90px; }
+.form-note{ font-size:0.78rem; color:var(--chrome); font-family:'Jost',sans-serif; }
+.time-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.time-slot{
+padding:11px 6px; text-align:center; border:1px solid var(--line);
+background:var(--bg); color:var(--cream); font-size:0.83rem; cursor:pointer; transition:.15s; font-family:'Jost',sans-serif;
+}
+.time-slot:hover{ border-color:var(--paint-red); }
+.time-slot.selected{ background:var(--paint-red); border-color:var(--paint-red); color:var(--bg); font-weight:600; }
+.time-slot.disabled{ opacity:0.35; cursor:not-allowed; text-decoration:line-through; }
+#bookingSummary{
+background:var(--bg); border:1px solid var(--line);
+padding:14px 18px; font-size:0.9rem; color:var(--chrome); display:none; font-family:'Jost',sans-serif;
+}
+#bookingSummary strong{ color:var(--cream); }
+#formStatus{ display:none; padding:14px 18px; font-size:0.9rem; font-family:'Jost',sans-serif; }
+#formStatus.success{ display:block; background:rgba(47,143,91,0.15); border:1px solid var(--ok-green); color:#8fd6ac; }
+#formStatus.error{ display:block; background:rgba(201,162,75,0.1); border:1px solid var(--paint-red); color:var(--paint-red-light); }
+
+footer{
+border-top:1px solid var(--line); padding:36px 24px; text-align:center;
+color:var(--chrome); font-size:0.82rem; font-family:'Jost',sans-serif;
+}
+
+@media (max-width: 800px){
+.nav-links{ display:none; }
+.services-grid, .gallery-grid{ grid-template-columns:1fr; }
+.plan{ border-right:none; border-bottom:1px solid var(--line); }
+.area-box{ flex-direction:column; }
+.field-row{ grid-template-columns:1fr; }
+.time-grid{ grid-template-columns:repeat(2,1fr); }
+.booking-box{ padding:28px 20px; }
+}
+@media (prefers-reduced-motion: reduce){
+*{ transition:none !important; }
+}
+
+/* ===== LAUNCH OFFER BAR ===== */
+.offer-bar{
+  background:rgba(11,11,12,0.85);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(201,162,75,0.22);
+  color:var(--cream);
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 22px;
+  padding:11px 20px; font-family:'Jost',sans-serif; font-size:0.82rem; font-weight:400;
+  letter-spacing:0.02em; text-align:center; position:relative; z-index:60;
+}
+.offer-bar .offer-text{ color:#c8c2b4; }
+.offer-bar .offer-text strong{ color:var(--paint-red); font-weight:600; letter-spacing:0.08em; text-transform:uppercase; font-size:0.76rem; }
+.offer-timer{
+  font-variant-numeric:tabular-nums; font-weight:500; letter-spacing:0.04em;
+  color:var(--paint-red-light); white-space:nowrap; opacity:0.9;
+}
+.offer-divider{ color:rgba(201,162,75,0.35); }
+.offer-cta{
+  color:var(--paint-red); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; font-size:0.74rem;
+  border-bottom:1px solid rgba(201,162,75,0.4); padding-bottom:1px; white-space:nowrap;
+  transition:color .2s ease, border-color .2s ease;
+}
+.offer-cta:hover{ color:var(--paint-red-light); border-color:var(--paint-red-light); }
+@media (max-width:600px){
+  .offer-bar{ font-size:0.76rem; padding:9px 14px; gap:5px 14px; }
+  .offer-divider{ display:none; }
+}
+
+/* Booking discount note (matches offer bar) */
+.booking-offer{
+  max-width:640px; margin:0 auto 22px; text-align:center;
+  border:1px solid rgba(201,162,75,0.25); background:rgba(201,162,75,0.05);
+  padding:14px 20px; font-family:'Jost',sans-serif; font-size:0.9rem; color:#c8c2b4;
+}
+.booking-offer strong{ color:var(--paint-red); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; font-size:0.78rem; }
+.booking-offer .booking-offer-timer{ color:var(--paint-red-light); font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+/* ===== FAQ ===== */
+.faq-list{ max-width:760px; margin:0 auto; }
+.faq-item{
+  border-bottom:1px solid var(--line);
+}
+.faq-item summary{
+  list-style:none; cursor:pointer; padding:22px 44px 22px 4px; position:relative;
+  font-family:'Archivo',sans-serif; font-size:1.3rem; font-weight:600; color:var(--cream);
+  transition:color .2s ease;
+}
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary:hover{ color:var(--paint-red-light); }
+.faq-item summary::after{
+  content:"+"; position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  font-family:'Jost',sans-serif; font-size:1.5rem; font-weight:300; color:var(--paint-red);
+  transition:transform .3s ease;
+}
+.faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+.faq-answer{ overflow:hidden; }
+.faq-answer p{
+  padding:0 44px 24px 4px; color:var(--chrome); font-family:'Jost',sans-serif; font-size:0.98rem; line-height:1.7;
+}
+.faq-item[open] .faq-answer{ animation:faqOpen .35s ease; }
+@keyframes faqOpen{
+  from{ opacity:0; transform:translateY(-8px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+@media (max-width: 800px){
+  .faq-item summary{ font-size:1.15rem; }
+}
+
+/* ===== ANIMATIONS ===== */
+/* Hero entrance sequence */
+@keyframes riseIn {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero .eyebrow{ opacity:0; animation:riseIn .8s ease .1s forwards; }
+.hero h1{ opacity:0; animation:riseIn .9s ease .28s forwards; }
+.hero p.lead{ opacity:0; animation:riseIn .9s ease .46s forwards; }
+.hero .cta-row{ opacity:0; animation:riseIn .9s ease .64s forwards; }
+.hero > img{ opacity:0; animation:riseIn 1s ease forwards; }
+
+/* Gold shine sweep across the hero */
+.hero::before{
+  content:"";
+  position:absolute; top:0; left:-40%;
+  width:50%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(201,162,75,0.10), transparent);
+  transform:skewX(-16deg);
+  animation:heroShine 3.4s ease-in-out 1s 1;
+  pointer-events:none;
+}
+@keyframes heroShine{
+  0%{ left:-45%; }
+  100%{ left:130%; }
+}
+
+/* Scroll-reveal for sections */
+.reveal{ opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+/* stagger children */
+.reveal.in .plan{ animation:riseIn .6s ease backwards; }
+.reveal.in .plan:nth-child(1){ animation-delay:.05s; }
+.reveal.in .plan:nth-child(2){ animation-delay:.15s; }
+.reveal.in .plan:nth-child(3){ animation-delay:.25s; }
+
+/* Pricing column hover lift */
+.plan{ transition:background .25s ease, transform .25s ease; }
+.plan:hover{ transform:translateY(-6px); }
+
+/* Animated gold underline under section headings */
+.section-head h2{ position:relative; display:inline-block; }
+.section-head h2::after{
+  content:""; position:absolute; left:50%; bottom:-10px; width:0; height:2px;
+  background:var(--paint-red); transition:width .6s ease .1s, left .6s ease .1s;
+}
+.reveal.in .section-head h2::after{ width:60px; left:calc(50% - 30px); }
+
+/* Gallery zoom on hover */
+.gallery-slot img{ transition:transform .5s ease; }
+.gallery-slot:hover img{ transform:scale(1.06); }
+
+/* Button sheen on hover */
+.btn-primary{ position:relative; overflow:hidden; }
+.btn-primary::after{
+  content:""; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform:skewX(-18deg); transition:none;
+}
+.btn-primary:hover::after{ animation:btnSheen .7s ease 1; }
+@keyframes btnSheen{ from{ left:-120%; } to{ left:160%; } }
+
+@media (prefers-reduced-motion: reduce){
+  .hero .eyebrow,.hero h1,.hero p.lead,.hero .cta-row,.hero > img{ opacity:1 !important; animation:none !important; }
+  .hero::before{ animation:none !important; }
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .reveal.in .plan{ animation:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="offer-bar" id="offerBar">
+<span class="offer-text"><strong>Launch Offer</strong> &nbsp;15% off your first detail</span>
+<span class="offer-divider">·</span>
+<span class="offer-timer" id="offerTimer" aria-live="polite"></span>
+<span class="offer-divider">·</span>
+<a class="offer-cta" href="#booking">Claim it</a>
+</div>
+
+<header>
+<nav>
+<div class="brand">JOLY<span>SHINE</span></div>
+<div class="nav-links">
+<a href="#services">Services</a>
+<a href="#testimonials">Testimonials</a>
+<a href="#gallery">Gallery</a>
+<a href="#area">Service Area</a>
+<a href="#faq">FAQ</a>
+<a href="#booking">Book Now</a>
+</div>
+<a class="nav-call" href="#booking">Book a Detail</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-logo-wrap">
+<img src="logo-banner.png" alt="JolyShine — Shine Like New, Mobile Detailing" class="hero-logo">
+</div>
+<div class="eyebrow">Serving Allen, Plano, Frisco & Surrounding Areas</div>
+<h1>Your car,<br><em>showroom clean</em>, in your driveway.</h1>
+<p class="lead">JolyShine brings professional interior and exterior detailing straight to you. No drop-off, no waiting room — just a clean ride when we're done.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="#booking">Book Online</a>
+<a class="btn btn-ghost" href="tel:9452481256">Call (945) 248-1256</a>
+</div>
+</section>
+
+<section id="services" class="reveal">
+<div class="section-head">
+<div class="eyebrow">Pricing</div>
+<h2>Detailing Packages</h2>
+<p>Straightforward pricing. Add-ons available — ask when you book.</p>
+</div>
+<div class="services-grid">
+<div class="plan" data-package="Exterior Detail ($75)">
+<h3>Exterior Detail</h3>
+<div class="price">$75 <small>/ starting</small></div>
+<ul>
+<li>Hand wash & dry</li>
+<li>Wheels & tires cleaned</li>
+<li>Windows cleaned outside</li>
+<li>Exterior wax / sealant</li>
+</ul>
+<a class="btn btn-ghost book-this" href="#booking" data-package="Exterior Detail ($75)">Book This</a>
+</div>
+<div class="plan featured" data-package="Interior Detail ($85)">
+<span class="tag">Most Popular</span>
+<h3>Interior Detail</h3>
+<div class="price">$85 <small>/ starting</small></div>
+<ul>
+<li>Full interior vacuum</li>
+<li>Dash, console & door panel detail</li>
+<li>Interior glass cleaned</li>
+<li>Leather/upholstery conditioning</li>
+</ul>
+<a class="btn btn-primary book-this" href="#booking" data-package="Interior Detail ($85)">Book This</a>
+</div>
+<div class="plan" data-package="Express Detail ($100)">
+<h3>Express Detail</h3>
+<div class="price">$100 <small>/ starting</small></div>
+<ul>
+<li>Quick exterior hand wash</li>
+<li>Interior vacuum & wipe-down</li>
+<li>Windows cleaned in & out</li>
+<li>Fast turnaround — in and out sooner</li>
+</ul>
+<a class="btn btn-ghost book-this" href="#booking" data-package="Express Detail ($100)">Book This</a>
+</div>
+</div>
+<p style="text-align:center; margin-top:36px; color:var(--chrome); font-size:0.95rem;">
+✨ Leave us a review after your detail and get <strong style="color:var(--paint-red-light);">10% off</strong> your next booking.
+</p>
+</section>
+
+<section id="testimonials" class="reveal">
+<div class="section-head">
+<div class="eyebrow">Customer Love</div>
+<h2>What People Are Saying</h2>
+<p>Real feedback from real customers around Allen, Plano &amp; Frisco.</p>
+</div>
+<div class="services-grid">
+<div class="plan">
+<p style="color:var(--cream); font-style:italic; margin-bottom:18px;">"My car looked brand new when they were done. Super easy to book and they came right to my house."</p>
+<p style="color:var(--paint-red-light); font-weight:600;">— Sarah M.</p>
+</div>
+<div class="plan">
+<p style="color:var(--cream); font-style:italic; margin-bottom:18px;">"Best detail I've gotten in Allen. Attention to detail was unreal, especially the interior."</p>
+<p style="color:var(--paint-red-light); font-weight:600;">— Marcus T.</p>
+</div>
+<div class="plan">
+<p style="color:var(--cream); font-style:italic; margin-bottom:18px;">"Friendly, fast, and the mobile setup is so convenient. Will be a repeat customer for sure."</p>
+<p style="color:var(--paint-red-light); font-weight:600;">— Jenna R.</p>
+</div>
+</div>
+</section>
+
+<section id="gallery" class="reveal">
+<div class="section-head">
+<div class="eyebrow">Recent Work</div>
+<h2>Fresh Off a Detail</h2>
+<p>A Lexus RX interior — cleaned top to bottom by JolyShine.</p>
+</div>
+<div class="ring-gallery">
+<div class="ring-stage" id="ringStage">
+<div class="ring-item"><img src="gallery1.jpg" alt="Rear seats detailed - Lexus RX"></div>
+<div class="ring-item"><img src="gallery2.jpg" alt="Driver interior detailed - Lexus RX"></div>
+<div class="ring-item"><img src="gallery3.jpg" alt="Door panel detail - Lexus RX"></div>
+<div class="ring-item"><img src="gallery4.jpg" alt="Front seat detailed - Lexus RX"></div>
+<div class="ring-item"><img src="gallery5.jpg" alt="Door panel close up - Lexus RX"></div>
+<div class="ring-item"><img src="gallery6.jpg" alt="Lexus sill illuminated"></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery1.jpg" alt=""></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery2.jpg" alt=""></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery3.jpg" alt=""></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery4.jpg" alt=""></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery5.jpg" alt=""></div>
+<div class="ring-item" aria-hidden="true"><img src="gallery6.jpg" alt=""></div>
+</div>
+</div>
+</section>
+
+<section id="area" class="reveal">
+<div class="area-box">
+<div class="pin">📍</div>
+<div>
+<h3>Proudly serving Allen, Plano &amp; Frisco</h3>
+<p>And surrounding areas. We come to your home or office — just tell us where to park.</p>
+</div>
+</div>
+</section>
+
+<section id="faq" class="reveal">
+<div class="section-head">
+<div class="eyebrow">Good to Know</div>
+<h2>Frequently Asked Questions</h2>
+<p>Everything you need to know before your first detail.</p>
+</div>
+<div class="faq-list">
+<details class="faq-item">
+<summary>Do you come to my home or office?</summary>
+<div class="faq-answer"><p>Yes — we're fully mobile. We bring everything to your driveway, apartment lot, or office parking spot anywhere in Allen, Plano, Frisco and nearby areas. Just let us know where to park when you book.</p></div>
+</details>
+<details class="faq-item">
+<summary>Do you need access to water or electricity?</summary>
+<div class="faq-answer"><p>Yes — we'll need access to a water spigot and a standard power outlet at your location. Most homes have both readily available. If you're not sure whether your spot will work, just mention it when you book and we'll help you figure it out.</p></div>
+</details>
+<details class="faq-item">
+<summary>How long does a detail take?</summary>
+<div class="faq-answer"><p>It depends on the package and your vehicle's condition. As a rough guide: an Exterior Detail runs about 45–60 minutes, an Interior Detail about 60–75 minutes, and an Express Detail around 30–45 minutes for a quick full-car refresh. We'll give you a clearer estimate when you book.</p></div>
+</details>
+<details class="faq-item">
+<summary>What areas do you serve?</summary>
+<div class="faq-answer"><p>Allen, Plano, Frisco and the surrounding communities. If you're just outside the area, reach out anyway — we'll let you know if we can make it work.</p></div>
+</details>
+<details class="faq-item">
+<summary>How do I pay?</summary>
+<div class="faq-answer"><p>We accept just about everything — credit and debit card, cash, tap to pay, and Zelle. Card payments run securely through Square. Payment is due after the detail is complete and you're happy with the results.</p></div>
+</details>
+<details class="faq-item">
+<summary>What if my car is really dirty or has pet hair?</summary>
+<div class="faq-answer"><p>No problem — just mention it in the "anything else" box when you book so we can plan the right amount of time. Heavier jobs may take a little longer, and we'll always be upfront if anything affects pricing.</p></div>
+</details>
+<details class="faq-item">
+<summary>How do I book?</summary>
+<div class="faq-answer"><p>Use the booking form just below — pick a package, date, and time, and we'll confirm by phone or text within a few hours. Prefer to talk first? Call us at (945) 248-1256.</p></div>
+</details>
+</div>
+</section>
+
+<section id="booking" class="reveal">
+<div class="section-head">
+<div class="eyebrow">Book Online</div>
+<h2>Schedule Your Detail</h2>
+<p>Pick a package, date, and time. We'll confirm by phone or text within a few hours.</p>
+</div>
+
+<div class="booking-offer">
+<strong>Launch Offer</strong> &nbsp;— book now and get <strong style="font-size:0.9rem; text-transform:none; letter-spacing:0; color:var(--paint-red-light);">15% off</strong> your first detail. Offer ends in <span class="booking-offer-timer" id="bookingOfferTimer"></span>.
+</div>
+
+<div class="booking-box">
+<form id="bookingForm" action="https://formspree.io/f/xvzjllpq" method="POST">
+
+<div>
+<label for="package">Package</label>
+<select id="package" name="package" required>
+<option value="">Select a package…</option>
+<option value="Exterior Detail ($75)">Exterior Detail — $75</option>
+<option value="Interior Detail ($85)">Interior Detail — $85 (Most Popular)</option>
+<option value="Express Detail ($100)">Express Detail — $100</option>
+</select>
+</div>
+
+<div class="field-row">
+<div>
+<label for="name">Your Name</label>
+<input type="text" id="name" name="name" placeholder="Jane Smith" required>
+</div>
+<div>
+<label for="phone">Phone Number</label>
+<input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
+</div>
+</div>
+
+<div>
+<label for="vehicle">Vehicle (make/model)</label>
+<input type="text" id="vehicle" name="vehicle" placeholder="e.g. Lexus RX 2021">
+</div>
+
+<div class="field-row">
+<div>
+<label for="date">Preferred Date</label>
+<div class="date-pair">
+<select id="dateMonth" required>
+<option value="">Month</option>
+</select>
+<select id="dateDay" required>
+<option value="">Day</option>
+</select>
+</div>
+<input type="hidden" id="date" name="date">
+</div>
+<div>
+<label for="address">Service Address / ZIP</label>
+<input type="text" id="address" name="address" placeholder="Allen, TX 75002" required>
+</div>
+</div>
+
+<div>
+<label>Preferred Time</label>
+<div class="time-grid" id="timeGrid">
+<div class="time-slot" data-time="9:00 AM">9:00 AM</div>
+<div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+<div class="time-slot" data-time="1:00 PM">1:00 PM</div>
+<div class="time-slot" data-time="3:00 PM">3:00 PM</div>
+</div>
+<input type="hidden" id="time" name="time" required>
+</div>
+
+<div>
+<label for="message">Anything else we should know?</label>
+<textarea id="message" name="message" placeholder="Pet hair, stains, tight parking, etc."></textarea>
+</div>
+
+<div id="bookingSummary"></div>
+<div id="formStatus"></div>
+
+<button class="btn btn-primary" type="submit">Request This Booking</button>
+<p class="form-note">This sends a booking request — we'll text or call to confirm your exact appointment time. Prefer to talk now? Call <a href="tel:9452481256" style="color:var(--paint-red-light);">(945) 248-1256</a>.</p>
+</form>
+</div>
+</section>
+
+<footer>
+© 2026 JolyShine — Mobile Auto Detailing in Allen, Plano &amp; Frisco, TX
+<br>
+<span style="opacity:0.8;">(945) 248-1256 &nbsp;·&nbsp; info@jolyshine.com &nbsp;·&nbsp; jolyshine.com</span>
+</footer>
+
+<script>
+/* Launch offer rolling 3-day countdown */
+(function(){
+  var el = document.getElementById('offerTimer');
+  var el2 = document.getElementById('bookingOfferTimer');
+  if(!el && !el2) return;
+  var WINDOW = 3*24*60*60*1000; // 3 days in ms
+  function remaining(){
+    var now = Date.now();
+    var into = now % WINDOW;
+    return WINDOW - into;
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tick(){
+    var ms = remaining();
+    var d = Math.floor(ms/(24*3600*1000));
+    var h = Math.floor((ms%(24*3600*1000))/(3600*1000));
+    var m = Math.floor((ms%(3600*1000))/(60*1000));
+    var s = Math.floor((ms%(60*1000))/1000);
+    var txt = d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+    if(el) el.textContent = 'Ends in ' + txt;
+    if(el2) el2.textContent = txt;
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+<script>
+/* Scroll reveal */
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    els.forEach(function(e){ e.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold:0.15, rootMargin:'0px 0px -60px 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+<script>
+(function(){
+var dateInput = document.getElementById('date');
+var monthSelect = document.getElementById('dateMonth');
+var daySelect = document.getElementById('dateDay');
+var today = new Date();
+today.setHours(0,0,0,0);
+
+var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+monthNames.forEach(function(name, idx){
+var opt = document.createElement('option');
+opt.value = idx;
+opt.textContent = name;
+monthSelect.appendChild(opt);
+});
+
+function daysInMonth(monthIdx, year){
+return new Date(year, monthIdx+1, 0).getDate();
+}
+
+function populateDays(){
+var chosenMonth = monthSelect.value;
+daySelect.innerHTML = '<option value="">Day</option>';
+if(chosenMonth === '') return;
+// Use the soonest upcoming year for this month so day counts (e.g. leap Feb) are correct
+var year = today.getFullYear();
+if(parseInt(chosenMonth,10) < today.getMonth()) year += 1;
+var numDays = daysInMonth(parseInt(chosenMonth,10), year);
+for(var d=1; d<=numDays; d++){
+var opt = document.createElement('option');
+opt.value = d;
+opt.textContent = d;
+daySelect.appendChild(opt);
+}
+}
+monthSelect.addEventListener('change', function(){ populateDays(); computeDate(); });
+daySelect.addEventListener('change', computeDate);
+
+function computeDate(){
+var m = monthSelect.value, d = daySelect.value;
+if(m === '' || d === ''){ dateInput.value = ''; updateSummary(); return; }
+m = parseInt(m,10); d = parseInt(d,10);
+// Pick the nearest occurrence of this month/day that isn't in the past
+var year = today.getFullYear();
+var candidate = new Date(year, m, d);
+if(candidate < today){ year += 1; candidate = new Date(year, m, d); }
+var mm = String(m+1).padStart(2,'0');
+var dd = String(d).padStart(2,'0');
+dateInput.value = year + '-' + mm + '-' + dd;
+updateSummary();
+}
+
+// Open all week — no day-of-week restriction
+
+var timeSlots = document.querySelectorAll('.time-slot');
+var timeField = document.getElementById('time');
+timeSlots.forEach(function(slot){
+slot.addEventListener('click', function(){
+timeSlots.forEach(function(s){ s.classList.remove('selected'); });
+slot.classList.add('selected');
+timeField.value = slot.getAttribute('data-time');
+updateSummary();
+});
+});
+
+var packageSelect = document.getElementById('package');
+packageSelect.addEventListener('change', updateSummary);
+
+document.querySelectorAll('.book-this').forEach(function(btn){
+btn.addEventListener('click', function(e){
+e.preventDefault();
+var pkg = btn.getAttribute('data-package');
+packageSelect.value = pkg;
+updateSummary();
+document.getElementById('booking').scrollIntoView({ behavior:'smooth' });
+});
+});
+
+function updateSummary(){
+var summary = document.getElementById('bookingSummary');
+var pkg = packageSelect.value;
+var date = dateInput.value;
+var time = timeField.value;
+if(pkg || date || time){
+var parts = [];
+if(pkg) parts.push('<strong>' + pkg + '</strong>');
+if(date) parts.push('on <strong>' + new Date(date + 'T00:00:00').toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + '</strong>');
+if(time) parts.push('at <strong>' + time + '</strong>');
+summary.innerHTML = parts.join(' ');
+summary.style.display = 'block';
+} else {
+summary.style.display = 'none';
+}
+}
+
+var form = document.getElementById('bookingForm');
+var status = document.getElementById('formStatus');
+form.addEventListener('submit', function(e){
+if(!timeField.value){
+e.preventDefault();
+status.textContent = 'Please pick a preferred time slot before submitting.';
+status.className = 'error';
+window.scrollTo({top: document.getElementById('timeGrid').offsetTop - 120, behavior:'smooth'});
+return;
+}
+e.preventDefault();
+status.textContent = 'Sending your request…';
+status.className = 'success';
+
+fetch(form.action, {
+method: 'POST',
+body: new FormData(form),
+headers: { 'Accept': 'application/json' }
+}).then(function(response){
+if(response.ok){
+status.textContent = "Thanks! Your booking request is in — we'll confirm by phone or text shortly.";
+status.className = 'success';
+form.reset();
+timeSlots.forEach(function(s){ s.classList.remove('selected'); });
+document.getElementById('bookingSummary').style.display = 'none';
+} else {
+status.textContent = "Something went wrong sending your request — please call (945) 248-1256 instead.";
+status.className = 'error';
+}
+}).catch(function(){
+status.textContent = "Something went wrong sending your request — please call (945) 248-1256 instead.";
+status.className = 'error';
+});
+});
+})();
+</script>
+
+</body>
+</html>
