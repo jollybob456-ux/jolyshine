@@ -516,31 +516,39 @@ body::after {
 .ba-cta { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 36px; text-align: center; }
 .ba-cta p { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; }
 
-/* ---------- Carousel ---------- */
-.work { padding: clamp(80px, 12vw, 140px) 0; overflow: hidden; }
-.work .section-head { padding: 0 var(--gutter); }
-.carousel {
-  position: relative; overflow: hidden; cursor: grab;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  touch-action: pan-y;
+/* ---------- Photo wall: a hand-placed collage that loops endlessly ----------
+   Tiles are positioned in units of the wall height (--h), so the collage scales as one piece.
+   The panel is 276 units wide (including a trailing gap) and is cloned once for a seamless loop. */
+.wall {
+  --h: clamp(340px, 40vw, 520px);
+  position: relative; height: var(--h); overflow: hidden;
+  cursor: grab; touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  user-select: none; -webkit-user-select: none;
 }
-.carousel.is-dragging { cursor: grabbing; }
-.carousel-track { display: flex; gap: 16px; width: max-content; will-change: transform; }
+.wall.is-dragging { cursor: grabbing; }
+.carousel-track { display: flex; height: 100%; width: max-content; will-change: transform; }
+.wall-panel { position: relative; flex: none; height: 100%; width: calc(var(--h) * 2.76); }
 .shot {
-  position: relative; flex: none; overflow: hidden; background: var(--card);
-  height: clamp(260px, 34vw, 440px); cursor: zoom-in;
+  position: absolute; overflow: hidden; background: var(--card); cursor: zoom-in;
+  left: calc(var(--h) * var(--x) / 100); top: calc(var(--h) * var(--y) / 100);
+  width: calc(var(--h) * var(--w) / 100); height: calc(var(--h) * var(--hh) / 100);
 }
-.carousel.is-dragging .shot { cursor: grabbing; }
-.shot img { height: 100%; width: auto; transition: transform 1.2s var(--ease-out); -webkit-user-drag: none; }
+.wall.is-dragging .shot { cursor: grabbing; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); -webkit-user-drag: none; }
 .shot::after {
-  content: "View"; position: absolute; inset: 0; display: grid; place-items: center;
-  font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; color: var(--cream);
-  background: rgba(11,11,12,.35);
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  background: linear-gradient(160deg, rgba(255,255,255,.08), transparent 40%);
   opacity: 0; transition: opacity .5s var(--ease-out);
 }
 .shot:hover::after { opacity: 1; }
-.shot:hover img { transform: scale(1.06); }
+.shot:hover img { transform: scale(1.05); }
+/* tiles settle in one after another when the wall first appears */
+.js .wall.reveal .shot { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease-out), transform 1s var(--ease-out); transition-delay: calc(var(--d) * 60ms); }
+.js .wall.reveal.in .shot { opacity: 1; transform: none; }
+.js .wall.reveal { opacity: 1; transform: none; }
 
 /* ---------- Lightbox ---------- */
 .lightbox {
@@ -918,7 +926,6 @@ body::after {
   .ba { aspect-ratio: 4 / 3; }
   .ba-handle { width: 40px; height: 40px; }
   .trust-row { flex-direction: column; align-items: center; gap: 6px; }
-  .shot { height: 62vw; }
   .hero-eyebrow::before { display: none; }
   .pkg-grid { grid-template-columns: 1fr; }
   .pkg-body { flex-direction: row; align-items: center; justify-content: space-between; padding-right: 48px; }
@@ -1006,9 +1013,7 @@ body::after {
   .ba-cta .btn { width: 100%; }
 
   /* Carousel */
-  .work { padding-block: 72px 36px; }
-  .carousel-track { gap: 10px; }
-  .carousel { -webkit-mask-image: none; mask-image: none; }
+  .wall { --h: 330px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
 
   /* Booking */
   .trust-row { margin: -20px auto 22px; font-size: .86rem; }
@@ -1053,6 +1058,7 @@ body::after {
   .quick-pkg:hover em { background: var(--silver); color: var(--bg); }
   .quick-pkg:active { background: rgba(236,238,240,.12); }
   .shot:hover::after { opacity: 0; }
+  .shot:active::after { opacity: 1; }
   .shot:hover img { transform: none; }
   .pkg:hover .pkg-body { transform: none; border-color: var(--line); }
   .pkg:active .pkg-body { border-color: var(--silver); }
