@@ -444,7 +444,7 @@
     }
   }
 
-  /* ---------- Clean-car carousel: endless auto-scroll, drag/swipe to browse ---------- */
+  /* ---------- Photo wall: endless auto-scroll, drag/swipe to browse ---------- */
   function carousel() {
     var wrap = $('#carousel');
     if (!wrap) return;
@@ -452,18 +452,19 @@
     var originals = $$('.shot', track);
     originals.forEach(function (s, i) { s.dataset.i = i; });
 
-    // Duplicate the set so the loop is seamless
-    originals.forEach(function (s) {
-      var c = s.cloneNode(true);
+    // Duplicate the collage panel so the loop is seamless
+    Array.prototype.slice.call(track.children).forEach(function (panel) {
+      var c = panel.cloneNode(true);
+      c.classList.add('is-clone');
       c.setAttribute('aria-hidden', 'true');
-      c.tabIndex = -1;
+      $$('.shot', c).forEach(function (s) { s.tabIndex = -1; });
       track.appendChild(c);
     });
 
     var x = 0, half = 0, speed = reduceMotion ? 0 : 0.45, visible = true;
     var dragging = false, moved = 0, startX = 0, startOffset = 0, velocity = 0, lastPX = 0, running = false;
 
-    function measure() { half = track.scrollWidth / 2; }
+    function measure() { half = track.children[0].getBoundingClientRect().width; }
     function wrapX() { if (half) { while (x <= -half) x += half; while (x > 0) x -= half; } }
     function paint() { track.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)'; }
 
@@ -503,6 +504,13 @@
     document.addEventListener('visibilitychange', function () { if (!document.hidden && visible) start(); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) start(); }).observe(wrap);
+      // Tiles off to the side of an overflow-hidden wall never trigger native lazy-load, so load them all once it's near
+      var warm = new IntersectionObserver(function (en) {
+        if (!en[0].isIntersecting) return;
+        warm.disconnect();
+        $$('img', track).forEach(function (img) { img.loading = 'eager'; });
+      }, { rootMargin: '800px 0px' });
+      warm.observe(wrap);
     }
     measure();
     start();
@@ -511,7 +519,7 @@
   /* ---------- Lightbox ---------- */
   function lightbox() {
     var lb = $('#lightbox');
-    var originals = $$('.shot:not([aria-hidden])');
+    var originals = $$('.carousel-track > :not(.is-clone) .shot');
     if (!lb || !originals.length) return;
     var img = $('img', lb), cap = $('figcaption', lb);
     var idx = 0, lastFocus = null;
